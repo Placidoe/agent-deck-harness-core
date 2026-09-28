@@ -26,6 +26,7 @@ Implemented:
 - a verified state ledger for requirements, facts, artifacts, evidence, and blockers;
 - bounded context assembly using explicit references;
 - in-memory and atomic JSON-file stores;
+- a transactional SQLite store with migrations, cursor paging, and snapshot recovery;
 - resume after process restart or human attention;
 - invalid-completion protection;
 - deterministic state-machine tests;
@@ -71,7 +72,7 @@ npm install
 npm test
 ```
 
-See [Architecture](docs/ARCHITECTURE.md), [Run Item Protocol](docs/RUN_ITEM_PROTOCOL.md), [Roadmap](docs/ROADMAP.md), and [ADR-0001](docs/decisions/0001-verified-state-ledger.md).
+See [Architecture](docs/ARCHITECTURE.md), [Run Item Protocol](docs/RUN_ITEM_PROTOCOL.md), [SQLite Store](docs/SQLITE_STORE.md), [Roadmap](docs/ROADMAP.md), and [ADR-0001](docs/decisions/0001-verified-state-ledger.md).
 
 ## Relationship to DeepSeek Harness
 

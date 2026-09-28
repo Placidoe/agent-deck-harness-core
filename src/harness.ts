@@ -370,9 +370,8 @@ export class AgentHarness {
       type,
       data,
     };
-    await this.#store.append(event);
     state.eventSequence = sequence;
-    await this.#store.save(state);
+    await this.#store.commit(state, event);
     await onEvent?.(structuredClone(event));
   }
 

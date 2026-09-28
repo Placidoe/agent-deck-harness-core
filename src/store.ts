@@ -32,6 +32,13 @@ export class MemoryRunStore implements RunStore {
     this.#events.set(event.runId, events);
   }
 
+  async commit(state: RunState, event: HarnessEvent): Promise<void> {
+    const events = this.#events.get(event.runId) ?? [];
+    events.push(clone(event));
+    this.#events.set(event.runId, events);
+    this.#states.set(state.runId, clone(state));
+  }
+
   async readEvents(runId: string): Promise<HarnessEvent[]> {
     return clone(this.#events.get(runId) ?? []);
   }
@@ -68,6 +75,11 @@ export class JsonFileRunStore implements RunStore {
     await appendFile(this.#eventPath(event.runId), `${JSON.stringify(event)}\n`, "utf8");
   }
 
+  async commit(state: RunState, event: HarnessEvent): Promise<void> {
+    await this.append(event);
+    await this.save(state);
+  }
+
   async readEvents(runId: string): Promise<HarnessEvent[]> {
     assertRunId(runId);
     try {
@@ -94,4 +106,3 @@ export class JsonFileRunStore implements RunStore {
     return join(this.#runDirectory(runId), "events.jsonl");
   }
 }
-

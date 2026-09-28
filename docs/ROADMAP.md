@@ -23,7 +23,7 @@ Exit criterion: executor self-reports cannot produce false completion, and a sto
 - [ ] Structured tool registry with read/write/risk metadata
 - [ ] Approval policy and immutable audit trail
 - [ ] Process sandbox adapter
-- [ ] SQLite store and schema migrations
+- [x] SQLite store and schema migrations
 
 Exit criterion: forced process termination, duplicated delivery, or a stale writer cannot corrupt a run.
 

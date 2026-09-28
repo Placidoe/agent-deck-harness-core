@@ -188,9 +188,23 @@ export interface Auditor {
 
 export interface RunStore {
   load(runId: string): Promise<RunState | undefined>;
-  save(state: RunState): Promise<void>;
-  append(event: HarnessEvent): Promise<void>;
+  commit(state: RunState, event: HarnessEvent): Promise<void>;
   readEvents(runId: string): Promise<HarnessEvent[]>;
+}
+
+export interface EventPage {
+  events: HarnessEvent[];
+  nextCursor?: number;
+}
+
+export interface RunSummary {
+  runId: string;
+  goal: string;
+  status: RunStatus;
+  round: number;
+  eventSequence: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface HarnessAdapters {

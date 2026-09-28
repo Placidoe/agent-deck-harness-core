@@ -22,7 +22,7 @@
     "test": "npm run build && node --test test/*.test.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "keywords": [
     "agent",
@@ -41,4 +41,3 @@
     "typescript": "^5.9.3"
   }
 }
-
