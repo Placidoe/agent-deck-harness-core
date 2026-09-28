@@ -17,7 +17,7 @@ Exit criterion: executor self-reports cannot produce false completion, and a sto
 
 ## M1 — Production event and tool protocol
 
-- [ ] Streaming run-item protocol with stable event schemas
+- [x] Streaming run-item protocol with stable event schemas
 - [ ] Idempotency keys and optimistic concurrency control
 - [ ] Cancellation, deadline, heartbeat, and stale-run recovery
 - [ ] Structured tool registry with read/write/risk metadata
@@ -73,4 +73,3 @@ Every milestone reports:
 - repeated or no-progress tool calls;
 - human interventions;
 - recovery rate after injected failure.
-

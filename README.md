@@ -12,7 +12,8 @@ The project is intentionally not a model wrapper and not a multi-agent role-play
 - independent, evidence-backed verification;
 - explicit human-attention transitions;
 - crash-safe checkpoints and append-only events;
-- latency and call-count instrumentation.
+- latency and call-count instrumentation;
+- a versioned streaming run-item protocol with ordered replay and deduplication.
 
 ## Status
 
@@ -27,7 +28,9 @@ Implemented:
 - in-memory and atomic JSON-file stores;
 - resume after process restart or human attention;
 - invalid-completion protection;
-- deterministic state-machine tests.
+- deterministic state-machine tests;
+- versioned run-item envelopes for text, tools, approvals, artifacts, audit findings, errors, and terminal states;
+- deterministic reconstruction under duplicate and out-of-order delivery.
 
 Not implemented yet:
 
@@ -68,7 +71,7 @@ npm install
 npm test
 ```
 
-See [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and [ADR-0001](docs/decisions/0001-verified-state-ledger.md).
+See [Architecture](docs/ARCHITECTURE.md), [Run Item Protocol](docs/RUN_ITEM_PROTOCOL.md), [Roadmap](docs/ROADMAP.md), and [ADR-0001](docs/decisions/0001-verified-state-ledger.md).
 
 ## Relationship to DeepSeek Harness
 
