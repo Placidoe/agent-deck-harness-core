@@ -2,6 +2,8 @@
 
 A small, provider-neutral runtime and SDK for reliable long-horizon agents.
 
+![Agent Deck Harness architecture](docs/assets/harness-architecture.svg)
+
 The project is intentionally not a model wrapper and not a multi-agent role-playing framework. It owns the execution semantics that must remain stable across Codex, Claude Code, API models, local models, and future providers:
 
 - externally persisted task state;
@@ -71,4 +73,3 @@ See [Architecture](docs/ARCHITECTURE.md), [Roadmap](docs/ROADMAP.md), and [ADR-0
 ## Relationship to DeepSeek Harness
 
 DeepSeek Harness is an engineering reference and upstream research target. This repository is a clean implementation with a deliberately smaller scope. No DeepSeek Harness source code is copied into the core. If code is adopted later, its provenance and license will be recorded explicitly.
-

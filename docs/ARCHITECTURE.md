@@ -4,6 +4,20 @@
 
 Long-horizon execution is primarily a state-management and verification problem. Agent Deck Harness keeps the durable task state outside model context and lets interchangeable backends operate on bounded contracts.
 
+![Agent Deck Harness architecture](assets/harness-architecture.svg)
+
+The diagram separates five concerns that must not collapse into one model conversation:
+
+1. **Product boundary** — Agent Deck or another client uses the public SDK; it does not own runtime truth.
+2. **Control plane** — the router chooses the least costly safe path and the Manager compiles one bounded contract.
+3. **Execution plane** — a fresh-context Executor operates through replaceable provider and tool adapters.
+4. **Verification plane** — a read-only Auditor inspects the actual environment before evidence enters trusted state.
+5. **Durable runtime** — events, snapshots, metrics, replay, and human-attention states survive model calls and process restarts.
+
+Solid `M0` labels are implemented in the current kernel. Dashed connections and `M1`/`M2` labels show planned protocol, persistence, and routing work.
+
+### Compact control loop
+
 ```mermaid
 flowchart LR
     U[Original goal] --> M[Manager]
@@ -60,4 +74,3 @@ The SDK will evolve toward four layers:
 - [SWE-agent](https://arxiv.org/abs/2405.15793): agent-computer interface design materially affects agent performance.
 - [Agentless](https://arxiv.org/abs/2407.01489): simple, specialized workflows are a necessary baseline against complex agent systems.
 - [tau-bench](https://arxiv.org/abs/2406.12045): state-based evaluation and repeated-run reliability.
-

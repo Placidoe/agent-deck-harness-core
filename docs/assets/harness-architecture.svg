@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Deck Harness architecture</title>
+  <desc id="desc">A provider-neutral harness. Clients enter through a routing and control plane, bounded work runs through a fresh-context executor, a read-only auditor verifies the environment, and only verified evidence advances durable state.</desc>
+  <defs>
+    <style>
+      :root {
+        --bg: #f6f8fb;
+        --surface: #ffffff;
+        --surface-soft: #eef3f8;
+        --text: #172033;
+        --muted: #617087;
+        --line: #c7d1de;
+        --blue: #2563eb;
+        --blue-soft: #e8f0ff;
+        --green: #138a58;
+        --green-soft: #e4f7ed;
+        --amber: #b36a09;
+        --amber-soft: #fff3d7;
+        --violet: #7556d8;
+        --violet-soft: #f0ebff;
+        --shadow: #15223818;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1219;
+          --surface: #151c25;
+          --surface-soft: #1b2531;
+          --text: #eef4fb;
+          --muted: #9ba9ba;
+          --line: #354355;
+          --blue: #75a7ff;
+          --blue-soft: #15294b;
+          --green: #5ed29a;
+          --green-soft: #123526;
+          --amber: #f0b458;
+          --amber-soft: #3c2a10;
+          --violet: #b29bff;
+          --violet-soft: #282143;
+          --shadow: #00000050;
+        }
+      }
+      text { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: var(--text); }
+      .eyebrow { font-size: 15px; font-weight: 700; letter-spacing: 1.8px; fill: var(--muted); }
+      .title { font-size: 38px; font-weight: 760; letter-spacing: -1px; }
+      .subtitle { font-size: 18px; fill: var(--muted); }
+      .section { font-size: 18px; font-weight: 750; }
+      .node-title { font-size: 20px; font-weight: 730; }
+      .node-copy { font-size: 15px; fill: var(--muted); }
+      .tag { font-size: 13px; font-weight: 700; }
+      .step { font-size: 13px; font-weight: 800; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+      .boundary { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; rx: 28; filter: drop-shadow(0 12px 24px var(--shadow)); }
+      .node { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; rx: 18; }
+      .node-blue { fill: var(--blue-soft); stroke: var(--blue); }
+      .node-green { fill: var(--green-soft); stroke: var(--green); }
+      .node-amber { fill: var(--amber-soft); stroke: var(--amber); }
+      .node-violet { fill: var(--violet-soft); stroke: var(--violet); }
+      .rail { fill: var(--surface-soft); stroke: var(--line); stroke-width: 1.25; rx: 17; }
+      .arrow { fill: none; stroke: var(--blue); stroke-width: 2.5; marker-end: url(#arrow); }
+      .arrow-green { fill: none; stroke: var(--green); stroke-width: 2.5; marker-end: url(#arrow-green); }
+      .arrow-amber { fill: none; stroke: var(--amber); stroke-width: 2.5; marker-end: url(#arrow-amber); }
+      .arrow-muted { fill: none; stroke: var(--muted); stroke-width: 2; marker-end: url(#arrow-muted); }
+      .planned { stroke-dasharray: 8 7; }
+      .small-line { stroke: var(--line); stroke-width: 1.2; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#138a58"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#b36a09"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#617087"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1040" fill="var(--bg)"/>
+
+  <text x="80" y="72" class="eyebrow">AGENT DECK HARNESS</text>
+  <text x="80" y="119" class="title">Verified execution, not a longer chat</text>
+  <text x="80" y="154" class="subtitle">The model proposes. The harness owns state, boundaries, evidence, recovery, and human attention.</text>
+
+  <rect x="80" y="194" width="1440" height="102" class="rail"/>
+  <text x="112" y="225" class="eyebrow">PRODUCT + SDK BOUNDARY</text>
+  <text x="112" y="262" class="node-title">Agent Deck Desktop</text>
+  <text x="330" y="262" class="node-copy">or any client using @agent-deck/harness</text>
+  <rect x="1088" y="215" width="398" height="58" class="node node-violet"/>
+  <text x="1112" y="239" class="tag" fill="var(--violet)">PROVIDER ADAPTERS</text>
+  <text x="1112" y="260" class="node-copy">Codex · Claude Code · DeepSeek/API · DSH</text>
+
+  <rect x="80" y="328" width="1440" height="548" class="boundary"/>
+  <text x="112" y="365" class="eyebrow">HARNESS CORE · SOURCE OF EXECUTION TRUTH</text>
+
+  <rect x="112" y="395" width="286" height="116" class="node node-blue"/>
+  <circle cx="138" cy="421" r="14" fill="var(--blue)"/>
+  <text x="138" y="421" class="step">1</text>
+  <text x="164" y="428" class="node-title">Adaptive router</text>
+  <text x="136" y="458" class="node-copy">Direct · verified direct · managed</text>
+  <text x="136" y="482" class="node-copy">Selects the least costly safe path</text>
+  <rect x="328" y="405" width="50" height="22" rx="11" fill="var(--surface)" stroke="var(--line)"/>
+  <text x="353" y="421" class="tag" text-anchor="middle" fill="var(--muted)">M2</text>
+
+  <rect x="452" y="395" width="286" height="116" class="node node-blue"/>
+  <circle cx="478" cy="421" r="14" fill="var(--blue)"/>
+  <text x="478" y="421" class="step">2</text>
+  <text x="504" y="428" class="node-title">Manager</text>
+  <text x="476" y="458" class="node-copy">Compiles one bounded work contract</text>
+  <text x="476" y="482" class="node-copy">Decides execute · ask · block · done</text>
+  <rect x="670" y="405" width="48" height="22" rx="11" fill="var(--surface)" stroke="var(--green)"/>
+  <text x="694" y="421" class="tag" text-anchor="middle" fill="var(--green)">M0</text>
+
+  <rect x="792" y="395" width="286" height="116" class="node node-blue"/>
+  <circle cx="818" cy="421" r="14" fill="var(--blue)"/>
+  <text x="818" y="421" class="step">3</text>
+  <text x="844" y="428" class="node-title">Fresh executor</text>
+  <text x="816" y="458" class="node-copy">Receives contract + referenced state only</text>
+  <text x="816" y="482" class="node-copy">May mutate the environment</text>
+  <rect x="1010" y="405" width="48" height="22" rx="11" fill="var(--surface)" stroke="var(--green)"/>
+  <text x="1034" y="421" class="tag" text-anchor="middle" fill="var(--green)">M0</text>
+
+  <rect x="1132" y="395" width="356" height="116" class="node node-violet"/>
+  <text x="1156" y="428" class="node-title">Tool + provider runtime</text>
+  <text x="1156" y="458" class="node-copy">Model/CLI adapter · shell · MCP · approvals</text>
+  <text x="1156" y="482" class="node-copy">Capability-scoped, observable, replaceable</text>
+  <rect x="1418" y="405" width="50" height="22" rx="11" fill="var(--surface)" stroke="var(--line)"/>
+  <text x="1443" y="421" class="tag" text-anchor="middle" fill="var(--muted)">M1</text>
+
+  <path d="M398 453 H444" class="arrow planned"/>
+  <path d="M738 453 H784" class="arrow"/>
+  <path d="M1078 453 H1124" class="arrow-muted planned"/>
+
+  <rect x="792" y="572" width="286" height="116" class="node node-green"/>
+  <circle cx="818" cy="598" r="14" fill="var(--green)"/>
+  <text x="818" y="598" class="step">4</text>
+  <text x="844" y="605" class="node-title">Environment</text>
+  <text x="816" y="635" class="node-copy">Workspace · files · commands · services</text>
+  <text x="816" y="659" class="node-copy">The inspectable ground truth</text>
+
+  <rect x="452" y="572" width="286" height="116" class="node node-green"/>
+  <circle cx="478" cy="598" r="14" fill="var(--green)"/>
+  <text x="478" y="598" class="step">5</text>
+  <text x="504" y="605" class="node-title">Read-only auditor</text>
+  <text x="476" y="635" class="node-copy">Independently inspects actual outcomes</text>
+  <text x="476" y="659" class="node-copy">Executor claims are never trusted</text>
+  <rect x="670" y="582" width="48" height="22" rx="11" fill="var(--surface)" stroke="var(--green)"/>
+  <text x="694" y="598" class="tag" text-anchor="middle" fill="var(--green)">M0</text>
+
+  <rect x="112" y="572" width="286" height="116" class="node node-green"/>
+  <circle cx="138" cy="598" r="14" fill="var(--green)"/>
+  <text x="138" y="598" class="step">6</text>
+  <text x="164" y="605" class="node-title">State ledger</text>
+  <text x="136" y="635" class="node-copy">Requirements · facts · artifacts · evidence</text>
+  <text x="136" y="659" class="node-copy">Only audited evidence advances state</text>
+  <rect x="328" y="582" width="50" height="22" rx="11" fill="var(--surface)" stroke="var(--green)"/>
+  <text x="353" y="598" class="tag" text-anchor="middle" fill="var(--green)">M0</text>
+
+  <path d="M935 511 V564" class="arrow-green"/>
+  <path d="M792 630 H746" class="arrow-green"/>
+  <path d="M452 630 H406" class="arrow-green"/>
+  <path d="M255 572 V538 Q255 536 257 536 H579 Q595 536 595 520 V519" class="arrow-green"/>
+
+  <rect x="1132" y="572" width="356" height="116" class="node node-amber"/>
+  <text x="1156" y="605" class="node-title">Human attention gate</text>
+  <text x="1156" y="635" class="node-copy">Ask · approve · review · unblock</text>
+  <text x="1156" y="659" class="node-copy">Pauses explicitly; resumes from persisted state</text>
+  <rect x="1418" y="582" width="50" height="22" rx="11" fill="var(--surface)" stroke="var(--green)"/>
+  <text x="1443" y="598" class="tag" text-anchor="middle" fill="var(--green)">M0</text>
+
+  <path d="M398 630 H414 Q432 630 432 648 V690 Q432 704 446 704 H1310 Q1324 704 1324 696" class="arrow-amber"/>
+  <path d="M1310 572 V535 Q1310 526 1319 526 H1450 Q1468 526 1468 511" class="arrow-muted planned"/>
+
+  <line x1="112" y1="718" x2="1488" y2="718" class="small-line"/>
+  <text x="112" y="757" class="section">Durable runtime rail</text>
+  <text x="306" y="757" class="node-copy">Append-only events</text>
+  <text x="500" y="757" class="node-copy">Atomic snapshots / SQLite (M1)</text>
+  <text x="782" y="757" class="node-copy">Latency + token metrics</text>
+  <text x="1018" y="757" class="node-copy">Replay + stale-writer recovery (M1)</text>
+
+  <rect x="112" y="790" width="1376" height="54" class="rail"/>
+  <text x="136" y="823" class="tag" fill="var(--green)">INVARIANT</text>
+  <text x="250" y="823" class="node-copy">A run is complete only when every requirement is backed by persisted, clean audit evidence.</text>
+
+  <text x="80" y="927" class="eyebrow">ONE CONTROL LOOP</text>
+  <text x="80" y="961" class="subtitle">Route → contract → execute → inspect → verify → continue, repair, ask, block, or finish.</text>
+
+  <rect x="1130" y="914" width="64" height="26" rx="13" fill="var(--green-soft)" stroke="var(--green)"/>
+  <text x="1162" y="932" class="tag" text-anchor="middle" fill="var(--green)">M0</text>
+  <text x="1205" y="932" class="node-copy">implemented</text>
+  <line x1="1305" y1="927" x2="1360" y2="927" class="arrow-muted planned"/>
+  <text x="1372" y="932" class="node-copy">planned milestone</text>
+</svg>
