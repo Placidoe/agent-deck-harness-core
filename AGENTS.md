@@ -18,4 +18,4 @@ This repository owns a small, provider-neutral execution kernel. Keep the core i
 - Persist before emitting externally visible state.
 - Avoid runtime dependencies unless they remove more complexity than they add.
 - Do not copy code from research repositories without recording its license and provenance.
-
+- Portable model-role adapters may live in the core when they inject the client transport and controlled tools, import no vendor SDK, and keep permissions in the host. Completion requires a fresh read-only audit with host receipts; planning schema validation is explicitly not execution verification.

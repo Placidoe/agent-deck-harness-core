@@ -1,5 +1,13 @@
 # Agent Deck Harness Core
 
+## Model-backed portable execution (Beta)
+
+`@agent-deck/harness/portable` exports `AgentHarness`, memory/JSON stores and `createModelAdapters` without loading `node:sqlite`. Hosts can inject model transport and permission-controlled tools; the portable path is compatible with Electron's Node 20 runtime, while the SQLite export still requires Node 22.13+.
+
+The model adapters use one rule-driven manager and one executor. The auditor starts a fresh read-only context and completion requires actual host-generated tool receipts, not just a model's `passed` claim. Planning-only structural validation is an explicit separate mode, requires a validator, and is not workspace verification. Tool rounds and context size are bounded; roles never share raw execution trajectories. This is not a guarantee that every model verdict is correct: task-specific executable checks and real-provider evaluations remain necessary.
+
+The Agent Deck desktop consumes a versioned portable build and supplies API transport, encrypted key storage, approvals and workspace tools. No Codex implementation is imported by the SDK. The JSON store is a portable checkpoint/event log, not an atomic transactional store; production recovery/OCC remains follow-up work.
+
 A small, provider-neutral runtime and SDK for reliable long-horizon agents.
 
 ![Agent Deck Harness architecture](docs/assets/harness-architecture.svg)

@@ -127,7 +127,9 @@ export class AgentHarness {
   async #drive(state: RunState, options: DriveOptions): Promise<RunState> {
     let executedRounds = 0;
 
-    while (executedRounds < options.maxRounds) {
+    // Permit the final manager decision after the last allowed execution. A
+    // successful audit on the final round must not become budget_exhausted.
+    while (true) {
       if (options.signal?.aborted) {
         state.status = "canceled";
         state.updatedAt = this.#now();
@@ -203,6 +205,7 @@ export class AgentHarness {
         return state;
       }
 
+      if (executedRounds >= options.maxRounds) break;
       state.round += 1;
       executedRounds += 1;
       state.activeContract = structuredClone(decision.contract);

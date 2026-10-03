@@ -1,5 +1,7 @@
 export { buildExecutionContext } from "./context.js";
 export { AgentHarness } from "./harness.js";
+export { createModelAdapters } from "./model-adapters.js";
+export type * from "./model-adapters.js";
 export {
   assertRunItemEvent,
   createRunItemEvent,
